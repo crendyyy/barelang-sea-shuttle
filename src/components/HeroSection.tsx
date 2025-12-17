@@ -8,7 +8,17 @@ const HeroSection = () => {
   );
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center gradient-ocean overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background - dapat diganti dengan gambar */}
+      <div className="absolute inset-0 gradient-ocean" />
+      {/* Uncomment dan ganti URL untuk menggunakan foto background:
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/path-to-your-image.jpg')" }}
+      />
+      <div className="absolute inset-0 bg-primary/60" />
+      */}
+      
       {/* Wave decoration */}
       <div className="absolute bottom-0 left-0 right-0">
         <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
