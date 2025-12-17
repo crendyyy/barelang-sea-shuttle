@@ -5,6 +5,7 @@ const boats = [
   {
     name: "Pancung Full",
     capacity: "15 orang",
+    price: "Rp 1.500.000",
     description: "Kapal cepat untuk perjalanan grup sedang, cocok untuk wisata dan mancing.",
     icon: Ship,
     features: ["Cepat & Stabil", "Cocok untuk Wisata", "Nyaman"],
@@ -12,6 +13,7 @@ const boats = [
   {
     name: "Kerubut 7",
     capacity: "7 orang",
+    price: "Rp 800.000",
     description: "Kapal kecil untuk perjalanan privat atau grup kecil.",
     icon: Ship,
     features: ["Privat", "Ekonomis", "Fleksibel"],
@@ -19,6 +21,7 @@ const boats = [
   {
     name: "Kerubut 15",
     capacity: "15 orang",
+    price: "Rp 1.200.000",
     description: "Kapal menengah untuk kebutuhan grup standar dengan kenyamanan optimal.",
     icon: Ship,
     features: ["Kapasitas Sedang", "Nyaman", "Populer"],
@@ -26,6 +29,7 @@ const boats = [
   {
     name: "Kerubut 24",
     capacity: "24 orang",
+    price: "Rp 1.800.000",
     description: "Kapal besar untuk rombongan, acara keluarga, atau kegiatan perusahaan.",
     icon: Ship,
     features: ["Kapasitas Besar", "Untuk Rombongan", "Luas"],
@@ -33,6 +37,7 @@ const boats = [
   {
     name: "Pompong Karbo",
     capacity: "Angkut barang",
+    price: "Hubungi Kami",
     description: "Khusus untuk pengangkutan barang dan logistik laut.",
     icon: Package,
     features: ["Angkut Barang", "Kapasitas Besar", "Andal"],
@@ -83,6 +88,11 @@ const FleetSection = () => {
                     <Users className="w-4 h-4" />
                   )}
                   <span>{boat.capacity}</span>
+                </div>
+
+                <div className="text-lg font-bold text-primary mb-3">
+                  {boat.price}
+                  <span className="text-xs text-muted-foreground font-normal ml-1">/8 jam</span>
                 </div>
 
                 <p className="text-muted-foreground text-sm mb-4">{boat.description}</p>
