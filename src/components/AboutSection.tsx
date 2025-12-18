@@ -8,7 +8,8 @@ const AboutSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Tentang Kami
+            Tentang 
+            <span className="bg-gradient-to-r from-primary to-[hsl(210_100%_60%)] bg-clip-text text-transparent"> Kami</span>
           </h2>
           <div className="w-20 h-1 gradient-ocean mx-auto rounded-full" />
         </div>
