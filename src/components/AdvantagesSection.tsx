@@ -1,4 +1,5 @@
 import { Wallet, Clock, Wrench, ClipboardCheck, Percent, CheckCircle } from "lucide-react";
+import DecorativeBackground from "./DecorativeBackground";
 
 const advantages = [
   {
@@ -35,8 +36,9 @@ const advantages = [
 
 const AdvantagesSection = () => {
   return (
-    <section id="keunggulan" className="py-20 bg-muted/50">
-      <div className="container mx-auto px-4">
+    <section id="keunggulan" className="py-20 bg-muted/50 relative overflow-hidden">
+      <DecorativeBackground variant="alternate" />
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Mengapa Memilih Kami?

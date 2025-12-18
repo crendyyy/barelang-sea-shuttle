@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Users, Package, MessageCircle, Ship } from "lucide-react";
+import DecorativeBackground from "./DecorativeBackground";
 
 const boats = [
   {
@@ -55,8 +56,9 @@ const FleetSection = () => {
   };
 
   return (
-    <section id="armada" className="py-20 bg-muted/50">
-      <div className="container mx-auto px-4">
+    <section id="armada" className="py-20 bg-muted/50 relative overflow-hidden">
+      <DecorativeBackground variant="alternate" />
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Armada Kapal Kami

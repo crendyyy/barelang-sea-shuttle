@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MessageCircle, Send } from "lucide-react";
+import DecorativeBackground from "./DecorativeBackground";
 
 const services = [
   "Trip Mancing",
@@ -42,8 +43,9 @@ Mohon informasi lebih lanjut. Terima kasih!`;
   };
 
   return (
-    <section id="kontak" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
+    <section id="kontak" className="py-20 bg-background relative overflow-hidden">
+      <DecorativeBackground variant="default" />
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Hubungi Kami
