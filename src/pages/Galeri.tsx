@@ -70,8 +70,50 @@ const Galeri = () => {
       <Navbar />
       
       <main className="flex-1 pt-16">
-        <section className="py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
+        <section className="py-20 bg-muted/30 relative overflow-hidden">
+          {/* Decorative Background Elements */}
+          <div className="absolute inset-0 pointer-events-none">
+            {/* Gradient Circles */}
+            <div className="absolute top-10 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
+            <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+            <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-accent/5 rounded-full blur-2xl" />
+            
+            {/* Wave Pattern Top */}
+            <svg className="absolute top-0 left-0 right-0 w-full opacity-30" viewBox="0 0 1440 120" fill="none">
+              <path
+                d="M0 60L60 52C120 44 240 28 360 32C480 36 600 60 720 68C840 76 960 68 1080 56C1200 44 1320 28 1380 20L1440 12V0H0V60Z"
+                fill="hsl(var(--primary))"
+                fillOpacity="0.1"
+              />
+            </svg>
+            
+            {/* Wave Pattern Bottom */}
+            <svg className="absolute bottom-0 left-0 right-0 w-full opacity-20" viewBox="0 0 1440 120" fill="none">
+              <path
+                d="M0 60L60 68C120 76 240 92 360 88C480 84 600 60 720 52C840 44 960 52 1080 64C1200 76 1320 92 1380 100L1440 108V120H0V60Z"
+                fill="hsl(var(--primary))"
+                fillOpacity="0.15"
+              />
+            </svg>
+            
+            {/* Floating Dots Pattern */}
+            <div className="absolute top-20 right-20 grid grid-cols-3 gap-3 opacity-20">
+              {[...Array(9)].map((_, i) => (
+                <div key={i} className="w-2 h-2 bg-primary rounded-full" />
+              ))}
+            </div>
+            <div className="absolute bottom-40 left-20 grid grid-cols-3 gap-3 opacity-20">
+              {[...Array(9)].map((_, i) => (
+                <div key={i} className="w-2 h-2 bg-primary rounded-full" />
+              ))}
+            </div>
+            
+            {/* Decorative Lines */}
+            <div className="absolute top-40 right-1/4 w-32 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+            <div className="absolute bottom-60 left-1/4 w-48 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+          </div>
+          
+          <div className="container mx-auto px-4 relative z-10">
             <div className="text-center mb-12">
               <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                 Galeri Kami
