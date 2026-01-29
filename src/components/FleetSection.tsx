@@ -3,7 +3,7 @@ import { useState } from "react";
 import DecorativeBackground from "./DecorativeBackground";
 import Image15orang from "./assets/kapal/FotoKerubut15.jfif";
 import Image24orang from "./assets/kapal/FotoKerubut24.jfif";
-import Image7orang from "./assets/kapal/FotoKerubut7.jfif";
+import Image7orang from "./assets/kapal/Fotokerubut7.jfif";
 import ImagePompong from "./assets/kapal/FotoPongPongBarang.jfif";
 import ImagePancung from "./assets/kapal/FotoPancung.jfif";
 
