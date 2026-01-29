@@ -2,8 +2,8 @@ import { Phone, Mail, MapPin, Instagram, Facebook, MessageCircle } from "lucide-
 import DecorativeBackground from "./DecorativeBackground";
 
 const ContactSection = () => {
-  const whatsappNumber = "6283163007652";
-  const whatsappDisplay = "083163007652";
+  const whatsappNumber = "6281534475202";
+  const whatsappDisplay = "081534475202";
 
   const contactInfo = [
     {

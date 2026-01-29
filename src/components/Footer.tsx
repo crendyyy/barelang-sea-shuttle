@@ -14,7 +14,7 @@ const Footer = () => {
               <span className="text-xl font-bold">Rental Boot Batam</span>
             </div>
             <p className="text-primary-foreground/80 text-sm">
-              Solusi transportasi laut terpercaya sejak 2008. 
+              Solusi transportasi laut terpercaya sejak 2008.
               Melayani berbagai kebutuhan perjalanan laut di perairan Batam.
             </p>
           </div>
@@ -31,13 +31,13 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 flex-shrink-0" />
-                <a 
-                  href="https://wa.me/6283163007652" 
-                  target="_blank" 
+                <a
+                  href="https://wa.me/6281534475202"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
                 >
-                  083163007652
+                  081534475202
                 </a>
               </li>
               <li className="flex items-center gap-3">

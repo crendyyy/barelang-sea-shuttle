@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import logoNavbar from "@/components/assets/MainLogo.png";
+import logoNavbar from "@/components/assets/MainLogo.webp";
 
 const navLinks = [
   { href: "#tentang", label: "Tentang", isPage: false, id: "tentang" },
@@ -70,18 +70,17 @@ const Navbar = () => {
               <button
                 key={link.href}
                 onClick={() => handleClick(link)}
-                className={`text-sm font-medium transition-colors relative group cursor-pointer ${
-                  isActive(link.href)
+                className={`text-sm font-medium transition-colors relative group cursor-pointer ${isActive(link.href)
                     ? "text-blue-600"
                     : "text-gray-600 hover:text-blue-600"
-                }`}
+                  }`}
               >
                 {link.label}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full"></span>
               </button>
             ))}
             <Button className="gradient-ocean text-primary-foreground" asChild>
-              <a href="https://wa.me/6283163007652" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/6281534475202" target="_blank" rel="noopener noreferrer">
                 Hubungi Kami
               </a>
             </Button>
@@ -109,17 +108,16 @@ const Navbar = () => {
                 <button
                   key={link.href}
                   onClick={() => handleClick(link)}
-                  className={`text-left transition-colors py-2 cursor-pointer ${
-                    isActive(link.href)
+                  className={`text-left transition-colors py-2 cursor-pointer ${isActive(link.href)
                       ? "text-blue-600 font-semibold"
                       : "text-muted-foreground hover:text-primary"
-                  }`}
+                    }`}
                 >
                   {link.label}
                 </button>
               ))}
               <Button className="gradient-ocean text-primary-foreground mt-2" asChild>
-                <a href="https://wa.me/6283163007652" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/6281534475202" target="_blank" rel="noopener noreferrer">
                   Hubungi Kami
                 </a>
               </Button>

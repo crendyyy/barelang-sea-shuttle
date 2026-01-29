@@ -1,10 +1,17 @@
 import { Users, Package, MessageCircle, Ship, Plus, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 import DecorativeBackground from "./DecorativeBackground";
+import Image15orang from "./assets/kapal/FotoKerubut15.jfif";
+import Image24orang from "./assets/kapal/FotoKerubut24.jfif";
+import Image7orang from "./assets/kapal/FotoKerubut7.jfif";
+import ImagePompong from "./assets/kapal/FotoPongPongBarang.jfif";
+import ImagePancung from "./assets/kapal/FotoPancung.jfif";
+
 
 const boats = [
   {
     id: 1,
+    image: ImagePancung,
     name: "Pancung Full",
     capacity: "15 orang",
     price: "Rp 1.500.000",
@@ -14,6 +21,7 @@ const boats = [
   },
   {
     id: 2,
+    image: Image7orang,
     name: "Kerubut 7",
     capacity: "7 orang",
     price: "Rp 800.000",
@@ -23,6 +31,7 @@ const boats = [
   },
   {
     id: 3,
+    image: Image15orang,
     name: "Kerubut 15",
     capacity: "15 orang",
     price: "Rp 1.200.000",
@@ -32,6 +41,7 @@ const boats = [
   },
   {
     id: 4,
+    image: Image24orang,
     name: "Kerubut 24",
     capacity: "24 orang",
     price: "Rp 1.800.000",
@@ -41,6 +51,7 @@ const boats = [
   },
   {
     id: 5,
+    image: ImagePompong,
     name: "Pompong Karbo",
     capacity: "Angkut barang",
     price: "Hubungi Kami",
@@ -52,7 +63,7 @@ const boats = [
 
 const FleetSection = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const whatsappNumber = "6283163007652";
+  const whatsappNumber = "6281534475202";
 
   const getWhatsAppLink = (boatName: string) => {
     const message = encodeURIComponent(
@@ -86,7 +97,7 @@ const FleetSection = () => {
               onMouseEnter={() => setHoveredCard(boat.id)}
               onMouseLeave={() => setHoveredCard(null)}
             >
-              <div 
+              <div
                 className={`
                   fleet-card relative overflow-hidden rounded-2xl bg-card border-2 border-border/50
                   ${hoveredCard === boat.id ? 'is-hovered' : ''}
@@ -94,7 +105,7 @@ const FleetSection = () => {
               >
                 {/* Placeholder Image */}
                 <div className="h-48 bg-gradient-to-br from-primary to-[hsl(210_100%_60%)] flex items-center justify-center">
-                  <boat.icon className="w-20 h-20 text-primary-foreground/50" />
+                  <img src={boat.image} alt={boat.name} className="w-full h-full object-cover" />
                 </div>
 
                 <div className="p-6 flex flex-col">
@@ -132,8 +143,8 @@ const FleetSection = () => {
                     <div className="fleet-features absolute inset-0">
                       <div className="space-y-2">
                         {boat.features.map((feature, idx) => (
-                          <div 
-                            key={idx} 
+                          <div
+                            key={idx}
                             className="fleet-feature-item flex items-start gap-2"
                             style={{ '--delay': `${idx * 50}ms` } as React.CSSProperties}
                           >
@@ -153,10 +164,10 @@ const FleetSection = () => {
                     </button>
 
                     {/* CTA Button */}
-                    <a 
-                      href={getWhatsAppLink(boat.name)} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
+                    <a
+                      href={getWhatsAppLink(boat.name)}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="fleet-cta-btn absolute inset-0 w-full"
                     >
                       <button className="w-full h-full rounded-lg bg-gradient-to-r from-primary to-[hsl(210_100%_60%)] text-primary-foreground font-medium hover:opacity-90 transition-opacity group">

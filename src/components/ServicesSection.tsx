@@ -82,7 +82,7 @@ const ServicesSection = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   // WhatsApp contact
-  const phoneNumber = "6281234567890";
+  const phoneNumber = "6281534475202";
   const getWhatsAppUrl = (serviceName: string) => {
     const message = encodeURIComponent(
       `Halo, saya tertarik dengan layanan ${serviceName}. Bisakah saya mendapatkan informasi lebih lanjut?`
@@ -92,7 +92,7 @@ const ServicesSection = () => {
 
   return (
     <section id="layanan" className="py-20 bg-background relative overflow-hidden">
-            <DecorativeBackground variant="default" />
+      <DecorativeBackground variant="default" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
@@ -113,23 +113,23 @@ const ServicesSection = () => {
               onMouseEnter={() => setHoveredCard(service.id)}
               onMouseLeave={() => setHoveredCard(null)}
             >
-                 {/* Popular Badge */}
-                  {service.highlight && (
-                    <div className="absolute -top-3 -right-3 bg-accent text-accent-foreground text-xs font-bold px-3 py-1 rounded-full z-50">
-                      Populer
-                    </div>
-                  )}
-              <div 
+              {/* Popular Badge */}
+              {service.highlight && (
+                <div className="absolute -top-3 -right-3 bg-accent text-accent-foreground text-xs font-bold px-3 py-1 rounded-full z-50">
+                  Populer
+                </div>
+              )}
+              <div
                 className={`
                   service-card relative overflow-hidden rounded-2xl 
-                  ${service.highlight 
-                    ? 'bg-gradient-to-br from-primary to-[hsl(210_100%_60%)] text-primary-foreground' 
+                  ${service.highlight
+                    ? 'bg-gradient-to-br from-primary to-[hsl(210_100%_60%)] text-primary-foreground'
                     : 'bg-card border-2 border-border/50'
                   }
                   ${hoveredCard === service.id ? 'is-hovered' : ''}
                 `}
               >
-               
+
                 <div className="p-6 flex flex-col min-h-[320px]">
 
                   {/* Icon */}
@@ -158,8 +158,8 @@ const ServicesSection = () => {
                     <div className="service-features absolute inset-0">
                       <div className="space-y-2">
                         {service.features.map((feature, idx) => (
-                          <div 
-                            key={idx} 
+                          <div
+                            key={idx}
                             className="service-feature-item flex items-start gap-2"
                             style={{ '--delay': `${idx * 50}ms` } as React.CSSProperties}
                           >
@@ -182,16 +182,16 @@ const ServicesSection = () => {
                     </button>
 
                     {/* CTA Button */}
-                    <a 
-                      href={getWhatsAppUrl(service.title)} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
+                    <a
+                      href={getWhatsAppUrl(service.title)}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="service-cta-btn absolute inset-0 w-full"
                     >
                       <button className={`
                         w-full h-full rounded-lg border-2 font-medium transition-colors group
-                        ${service.highlight 
-                          ? 'border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary' 
+                        ${service.highlight
+                          ? 'border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary'
                           : 'border-primary text-primary hover:bg-primary hover:text-primary-foreground'
                         }
                       `}>
