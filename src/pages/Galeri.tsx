@@ -1,58 +1,76 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Camera, Ship, Anchor, Fish, Play } from "lucide-react";
+import { Camera, Play, FolderOpen, Loader2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import DecorativeBackground from "@/components/DecorativeBackground";
+import { galleryFoldersAPI, galleryItemsAPI } from "@/lib/api";
 
+interface GalleryFolder {
+  id: number;
+  name: string;
+  item_count: number;
+}
 
-const imagesInput = import.meta.glob('@/components/assets/galeri/*.{png,jpg,jpeg,jfif,webp,mp4}', { eager: true });
-
-const galleryItems = Object.entries(imagesInput).map(([path, module]: [string, any], index) => {
-  const fileName = path.split('/').pop()?.split('.')[0] || `Image ${index + 1}`;
-  // Format title: replace hyphens/underscores with spaces, add spaces before capital letters
-  const title = fileName
-    .replace(/[-_]/g, ' ')
-    .replace(/([A-Z])/g, ' $1')
-    .trim();
-  const isVideo = fileName.toLowerCase().endsWith('.mp4') || path.toLowerCase().endsWith('.mp4');
-
-  return {
-    id: index + 1,
-    category: "semua",
-    title: title,
-    src: module.default,
-    type: isVideo ? 'video' : 'image',
-    icon: isVideo ? Play : Camera,
-  };
-});
-
-const categories = [
-  { id: "semua", label: "Semua" },
-];
+interface GalleryItem {
+  id: number;
+  folder_id: number | null;
+  title: string | null;
+  file_url: string;
+  file_type: "image" | "video";
+  file_name: string;
+}
 
 const Galeri = () => {
-  const [activeCategory, setActiveCategory] = useState("semua");
-  const [selectedImage, setSelectedImage] = useState<typeof galleryItems[0] | null>(null);
+  const [folders, setFolders] = useState<GalleryFolder[]>([]);
+  const [totalAll, setTotalAll] = useState<number>(0);
+  const [items, setItems] = useState<GalleryItem[]>([]);
+  const [activeFolder, setActiveFolder] = useState<number | null>(null); // null = semua
+  const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
+  const [loadingFolders, setLF] = useState(true);
+  const [loadingItems, setLI] = useState(true);
 
-  const filteredItems =
-    activeCategory === "semua"
-      ? galleryItems
-      : galleryItems.filter((item) => item.category === activeCategory);
+  // Load folders + total count sekali
+  useEffect(() => {
+    galleryFoldersAPI.getAll()
+      .then(res => {
+        // Response baru: { folders: [...], total_all: N }
+        setFolders(res.data.folders ?? []);
+        setTotalAll(res.data.total_all ?? 0);
+      })
+      .catch(err => console.error("Galeri folders error:", err))
+      .finally(() => setLF(false));
+  }, []);
+
+  // Load items saat folder berubah
+  useEffect(() => {
+    setLI(true);
+    const req = activeFolder === null
+      ? galleryItemsAPI.getAll()
+      : galleryItemsAPI.getAll(activeFolder);
+
+    req
+      .then(res => setItems(res.data))
+      .catch(err => console.error("Galeri items error:", err))
+      .finally(() => setLI(false));
+  }, [activeFolder]);
 
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-
       <main className="flex-1 pt-16">
         <section className="py-20 bg-muted/30 relative overflow-hidden">
           <DecorativeBackground variant="alternate" />
-
           <div className="container mx-auto px-4 relative z-10">
+
+            {/* Header */}
             <div className="text-center mb-12">
               <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Galeri <span className="bg-gradient-to-r from-primary to-[hsl(210_100%_60%)] bg-clip-text text-transparent">Kami</span>
+                Galeri{" "}
+                <span className="bg-gradient-to-r from-primary to-[hsl(210_100%_60%)] bg-clip-text text-transparent">
+                  Kami
+                </span>
               </h1>
               <div className="w-20 h-1 gradient-ocean mx-auto rounded-full mb-4" />
               <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -60,46 +78,76 @@ const Galeri = () => {
               </p>
             </div>
 
-            {/* Category Filter */}
-            {/* Category Filter - Hidden for simple view */
-              /* 
+            {/* Folder Filter Tabs */}
+            {!loadingFolders && (
               <div className="flex justify-center gap-2 mb-8 flex-wrap">
-                {categories.map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => setActiveCategory(cat.id)}
-                    className={`px-6 py-2 rounded-full font-medium transition-all ${
-                      activeCategory === cat.id
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-background text-foreground hover:bg-primary/10 border border-border"
+                {/* Tab: Semua */}
+                <button
+                  onClick={() => setActiveFolder(null)}
+                  className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition-all ${activeFolder === null
+                      ? "bg-primary text-primary-foreground shadow-md"
+                      : "bg-background text-foreground hover:bg-primary/10 border border-border"
                     }`}
+                >
+                  <FolderOpen className="w-4 h-4" />
+                  Semua
+                  <span className={`text-xs px-1.5 py-0.5 rounded-full ${activeFolder === null ? "bg-primary-foreground/20" : "bg-muted"
+                    }`}>
+                    {totalAll}
+                  </span>
+                </button>
+
+                {/* Tab: Per Folder */}
+                {folders.map(folder => (
+                  <button
+                    key={folder.id}
+                    onClick={() => setActiveFolder(folder.id)}
+                    className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition-all ${activeFolder === folder.id
+                        ? "bg-primary text-primary-foreground shadow-md"
+                        : "bg-background text-foreground hover:bg-primary/10 border border-border"
+                      }`}
                   >
-                    {cat.label}
+                    <FolderOpen className="w-4 h-4" />
+                    {folder.name}
+                    <span className={`text-xs px-1.5 py-0.5 rounded-full ${activeFolder === folder.id ? "bg-primary-foreground/20" : "bg-muted"
+                      }`}>
+                      {folder.item_count}
+                    </span>
                   </button>
                 ))}
               </div>
-              */
-            }
+            )}
 
             {/* Gallery Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {filteredItems.map((item) => (
-                <div
-                  key={item.id}
-                  onClick={() => setSelectedImage(item)}
-                  className="aspect-square rounded-xl overflow-hidden cursor-pointer group relative bg-muted border border-border hover:shadow-lg transition-all"
-                >
-                  {item.src ? (
-                    item.type === 'video' ? (
+            {loadingItems ? (
+              <div className="flex justify-center py-16">
+                <Loader2 className="w-8 h-8 animate-spin text-primary" />
+              </div>
+            ) : items.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
+                <Camera className="w-12 h-12 mb-3 opacity-40" />
+                <p className="text-sm">
+                  {activeFolder === null
+                    ? "Belum ada foto. Hubungi kami untuk melihat armada secara langsung!"
+                    : "Folder ini belum memiliki foto."}
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {items.map((item) => (
+                  <div
+                    key={item.id}
+                    onClick={() => setSelectedItem(item)}
+                    className="aspect-square rounded-xl overflow-hidden cursor-pointer group relative bg-muted border border-border hover:shadow-lg transition-all"
+                  >
+                    {item.file_type === "video" ? (
                       <div className="w-full h-full relative group-hover:scale-105 transition-transform duration-500">
                         <video
-                          src={item.src}
+                          src={item.file_url}
                           className="w-full h-full object-cover"
-                          muted
-                          playsInline
-                          loop
-                          onMouseOver={event => event.currentTarget.play()}
-                          onMouseOut={event => event.currentTarget.pause()}
+                          muted playsInline loop
+                          onMouseOver={e => e.currentTarget.play()}
+                          onMouseOut={e => e.currentTarget.pause()}
                         />
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                           <div className="bg-black/30 rounded-full p-3 backdrop-blur-sm">
@@ -109,69 +157,50 @@ const Galeri = () => {
                       </div>
                     ) : (
                       <img
-                        src={item.src}
-                        alt={item.title}
+                        src={item.file_url}
+                        alt={item.title ?? item.file_name}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         loading="lazy"
                       />
-                    )
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center text-primary/60 bg-primary/10">
-                      <item.icon className="w-12 h-12 mb-2" />
-                      <span className="text-xs">{item.title}</span>
-                    </div>
-                  )}
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
 
-                  {/* Hover Overlay */}
-                  {/* <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                    <span className="text-white font-medium text-sm truncate w-full">
-                      {item.title}
-                    </span>
-                  </div> */}
-                </div>
-              ))}
-            </div>
-
-            <p className="text-center text-muted-foreground mt-8 text-sm">
-              📸 Foto-foto akan segera ditambahkan. Hubungi kami untuk melihat armada secara langsung!
-            </p>
+            {items.length > 0 && (
+              <p className="text-center text-muted-foreground mt-8 text-sm">
+                Menampilkan {items.length} foto/video
+              </p>
+            )}
           </div>
         </section>
 
-        {/* Lightbox Dialog */}
-        <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
+        {/* Lightbox */}
+        <Dialog open={!!selectedItem} onOpenChange={() => setSelectedItem(null)}>
           <DialogContent className="max-w-5xl p-0 overflow-hidden bg-background/95 backdrop-blur-sm border-none">
             <div className="relative flex flex-col items-center justify-center min-h-[50vh] max-h-[90vh]">
-              {selectedImage && (
-                <>
-                  <div className="w-full h-full flex items-center justify-center bg-black/5 p-4">
-                    {selectedImage.type === 'video' ? (
-                      <video
-                        src={selectedImage.src}
-                        className="max-w-full max-h-[80vh] object-contain rounded-md shadow-lg"
-                        controls
-                        autoPlay
-                      />
-                    ) : (
-                      <img
-                        src={selectedImage.src}
-                        alt={selectedImage.title}
-                        className="max-w-full max-h-[80vh] object-contain rounded-md shadow-lg"
-                      />
-                    )}
-                  </div>
-                  {/* <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/60 text-white backdrop-blur-md">
-                    <h3 className="text-lg font-semibold text-center">
-                      {selectedImage.title}
-                    </h3>
-                  </div> */}
-                </>
+              {selectedItem && (
+                <div className="w-full h-full flex items-center justify-center bg-black/5 p-4">
+                  {selectedItem.file_type === "video" ? (
+                    <video
+                      src={selectedItem.file_url}
+                      className="max-w-full max-h-[80vh] object-contain rounded-md shadow-lg"
+                      controls autoPlay
+                    />
+                  ) : (
+                    <img
+                      src={selectedItem.file_url}
+                      alt={selectedItem.title ?? selectedItem.file_name}
+                      className="max-w-full max-h-[80vh] object-contain rounded-md shadow-lg"
+                    />
+                  )}
+                </div>
               )}
             </div>
           </DialogContent>
         </Dialog>
       </main>
-
       <Footer />
       <FloatingWhatsApp />
     </div>

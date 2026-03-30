@@ -63,7 +63,7 @@ const AdvantagesSection = () => {
           </h2>
           <div className="w-20 h-1 gradient-ocean mx-auto rounded-full mb-4" />
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Keunggulan yang membuat Rental Boot Batam menjadi pilihan terpercaya
+            Keunggulan yang membuat Rental Boat Batam menjadi pilihan terpercaya
             sejak 2008
           </p>
         </div>

@@ -1,0 +1,7 @@
+# php-server/.htaccess  ← taruh ini di dalam folder php-server/
+Options -Indexes
+
+<FilesMatch "^(db\.php|\.env)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

@@ -3,6 +3,7 @@ import { MessageCircle, Anchor, Waves, Award, ChevronRight, Clock, Zap, MapPin }
 import imageHero from "@/components/assets/image.png";
 import { useEffect, useState, useMemo } from "react";
 
+
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -18,7 +19,7 @@ const HeroSection = () => {
 
   // OPTIMIZED: Memoize stats data
   const stats = useMemo(() => [
-    { value: "16+", label: "Tahun Pengalaman", icon: Clock },
+    { value: "18+", label: "Tahun Pengalaman", icon: Clock },
     { value: "24/7", label: "Operasional", icon: Zap },
     { value: "3", label: "Lokasi", icon: MapPin }
   ], []);
@@ -38,7 +39,7 @@ const HeroSection = () => {
         willChange: 'auto'
       }}
     >
-      {/* OPTIMIZED: Background image with better loading */}
+      {/* Background image for all screen sizes */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
@@ -47,10 +48,12 @@ const HeroSection = () => {
           backfaceVisibility: 'hidden'
         }}
       />
+
+      {/* Overlay */}
       <div className="absolute inset-0 bg-primary/60 pointer-events-none" />
 
       <div
-        className="container mx-auto px-4 text-center relative z-10"
+        className="container mx-auto px-4 text-start md:text-center relative z-10"
         style={{
           opacity: isVisible ? 1 : 0,
           transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
@@ -65,7 +68,7 @@ const HeroSection = () => {
 
         {/* Title */}
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-          Rental Boot Batam
+          Rental Boot <span className="text-white">Batam</span>
         </h1>
 
         <p className="text-xl md:text-2xl text-white/90 mb-3 font-medium">
@@ -76,26 +79,6 @@ const HeroSection = () => {
           Mempermudah akses transportasi laut untuk wisata, mancing, angkut barang,
           dan jasa lainnya di perairan Batam
         </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white text-primary px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2 group"
-          >
-            <MessageCircle className="w-5 h-5 group-hover:rotate-12 transition-transform duration-200" />
-            Pesan Sekarang
-          </a>
-          <a
-            href="#armada"
-            className="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition-all duration-200 flex items-center justify-center gap-2"
-          >
-            Lihat Armada
-            <ChevronRight className="w-5 h-5" />
-          </a>
-        </div>
 
         {/* Stats */}
         <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
@@ -111,6 +94,28 @@ const HeroSection = () => {
             </div>
           ))}
         </div>
+
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white text-primary px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2 group"
+          >
+            <MessageCircle className="w-5 h-5 group-hover:rotate-12 transition-transform duration-200" />
+            Pesan Sekarang
+          </a>
+
+          <a
+            href="#armada"
+            className="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition-all duration-200 flex items-center justify-center gap-2"
+          >
+            Lihat Armada
+            <ChevronRight className="w-5 h-5" />
+          </a>
+        </div>
+
       </div>
     </section>
   );

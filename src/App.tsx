@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Galeri from "./pages/Galeri";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -16,9 +17,10 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/"       element={<Index />} />
           <Route path="/galeri" element={<Galeri />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/admin"  element={<Admin />} />
+          <Route path="*"       element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

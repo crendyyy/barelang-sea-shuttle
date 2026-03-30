@@ -11,7 +11,7 @@ const Footer = () => {
               <div className="bg-primary-foreground/20 rounded-full p-2">
                 <Anchor className="w-6 h-6" />
               </div>
-              <span className="text-xl font-bold">Rental Boot Batam</span>
+              <span className="text-xl font-bold">Rental Boat Batam</span>
             </div>
             <p className="text-primary-foreground/80 text-sm">
               Solusi transportasi laut terpercaya sejak 2008.
@@ -52,7 +52,7 @@ const Footer = () => {
             <h3 className="font-semibold text-lg mb-4">Ikuti Kami</h3>
             <div className="flex gap-3">
               <a
-                href="https://instagram.com/rentalbootbatam"
+                href="https://instagram.com/rentalBoatbatam"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-primary-foreground/20 hover:bg-primary-foreground/30 p-3 rounded-full transition-colors"
@@ -60,7 +60,7 @@ const Footer = () => {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="https://facebook.com/rentalbootbatam"
+                href="https://facebook.com/rentalBoatbatam"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-primary-foreground/20 hover:bg-primary-foreground/30 p-3 rounded-full transition-colors"
@@ -69,14 +69,14 @@ const Footer = () => {
               </a>
             </div>
             <p className="text-primary-foreground/80 text-sm mt-4">
-              @rentalbootbatam
+              @rentalBoatbatam
             </p>
           </div>
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center">
           <p className="text-sm text-primary-foreground/70">
-            © {new Date().getFullYear()} Rental Boot Batam. All rights reserved.
+            © {new Date().getFullYear()} Rental Boat Batam. All rights reserved.
           </p>
         </div>
       </div>
