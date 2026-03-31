@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Anchor, Waves, Award, ChevronRight, Clock, Zap, MapPin } from "lucide-react";
 import imageHero from "@/components/assets/image.png";
+import imageHeroMobile from "@/components/assets/foto10.jfif";
 import { useEffect, useState, useMemo } from "react";
 
 
@@ -39,9 +40,19 @@ const HeroSection = () => {
         willChange: 'auto'
       }}
     >
-      {/* Background image for all screen sizes */}
+      {/* Background image - Mobile (portrait) */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 md:hidden bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${imageHeroMobile})`,
+          transform: 'translateZ(0)',
+          backfaceVisibility: 'hidden'
+        }}
+      />
+
+      {/* Background image - Desktop (landscape) */}
+      <div
+        className="absolute inset-0 hidden md:block bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url(${imageHero})`,
           transform: 'translateZ(0)',
